@@ -169,11 +169,12 @@ KOMJAR25{Y0u_4re_g0dl1ke_FWeYgdADqZRzVM7cBZ3KdGKEu}
 ### Soal 19
 Manwe mengirimkan email berisi surat cinta kepada Varda melalui koneksi yang tidak terenkripsi. Melihat hal itu Melkor sipaling jahat langsung melancarkan aksinya yaitu meneror Varda dengan email yang disamarkan. Analisis file capture jaringan dan gagalkan lagi rencana busuk Melkor. nc 10.15.43.32 3406
  ![19](assets/19.png)
-### a. What?
+### a. Who sent the threatening message?
 ```bash 
 Your Life
 ```
  Display filter: ```smtp``` Klik kanan -> **follow -> TCP stream**
+ karena SMTP menangani pengiriman pesan di jaringan
  ![19a](assets/19a.png)
  
  ### b. How much ransom did the attacker demand ($)?
@@ -205,7 +206,7 @@ di soal ini diberikan file txt, sehingga kita masukkan filenya dengan cara **Edi
 ```bash 
 TLS
 ```
- ![20a](assets/20a.png)
+karena TLS merupakan protocol dengan probabilitas tertinggi sebagai kanal penyembunyian data (traffic terenkripsi & umum)
  
 
  ### b. What is the name of the malicious file placed by the attacker?
@@ -213,8 +214,7 @@ TLS
 invest_20.dll
 ```
 file -> export objects -> HTTP (cari file application dengan ekstensi)
- ![20b](assets/20b.png)
- 
+
 ### c. What is the hash of the file containing the malware?
 ```bash 
 31cf42b2a7c5c558f44cfc67684cc344c17d4946d3a1e0b2cecb8eb58173cb2f
