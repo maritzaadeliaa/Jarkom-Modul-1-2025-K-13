@@ -107,12 +107,19 @@ digunakan untuk mengecek ip di config resolve
 `
 Echo nameserver [IP] > /etc/resolv.conf
 `
+
+digunakan supaya ip di config resolve bisa terbaca oleh client (dilakukan untuk semua client)
+
 ### Soal 5
 Ainur terkuat Melkor tetap berusaha untuk menanamkan kejahatan ke dalam Arda (Bumi). Sebelum terjadi kerusakan, Eru dan para Ainur lainnya meminta agar semua konfigurasi tidak hilang saat semua node di restart.
 
 supaya konfigurasi tidak hilang ketika di restart, konfigurasi bisa disimpan di /root/ sebelum keluar dari project sehingga tidak reset
 
-digunakan supaya ip di config resolve bisa terbaca oleh client (dilakukan untuk semua client)
+### Soal 6
+Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam komunikasi antara Manwe dan Eru. Jalankan file berikut (link file) lalu lakukan packet sniffing menggunakan Wireshark pada koneksi antara Manwe dan Eru, lalu terapkan display filter untuk menampilkan semua paket yang berasal dari atau menuju ke IP Address Manwe. Simpan hasil capture tersebut sebagai bukti.
+
+
+
 ## Soal 14 - 20
 > untuk soal 14 - 20, kita perlu mendownload file zip yang diberikan kemudian membuka file pcapng(wireshark) dan di terminal ketik nc sesuai yang diberikan di soal
 > 
