@@ -118,6 +118,38 @@ supaya konfigurasi tidak hilang ketika di restart, konfigurasi bisa disimpan di 
 ### Soal 6
 Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam komunikasi antara Manwe dan Eru. Jalankan file berikut (link file) lalu lakukan packet sniffing menggunakan Wireshark pada koneksi antara Manwe dan Eru, lalu terapkan display filter untuk menampilkan semua paket yang berasal dari atau menuju ke IP Address Manwe. Simpan hasil capture tersebut sebagai bukti.
 
+Letakkan traffic.sh di node manwe lalu jalankan
+
+`
+chmod +x traffic.sh
+./traffic.sh
+`
+
+Lalu capture paket di manwe menggunakan tcpdump
+
+`
+tcpdump -i eth0 -n -w /root/manwe_eru_traffic.pcap host [ip]
+`
+
+yang nanti hasilnya bisa di akses di
+
+`
+/root/manwe_eru_traffic.pcap
+`
+
+dan bisa dicek menggunakan
+
+`
+ls -lh /root/manwe_eru_traffic.pcap
+tcpdump -r /root/manwe_eru_traffic.pcap -n | head
+`
+
+
+
+
+
+### Soal 7
+Untuk meningkatkan keamanan, Eru memutuskan untuk membuat sebuah FTP Server di node miliknya. Lakukan konfigurasi FTP Server pada node Eru. Buat dua user baru: ainur dengan hak akses write&read dan melkor tanpa hak akses sama sekali ke direktori shared. Buktikan hasil tersebut dengan membuat file teks sederhana kemudian akses file tersebut menggunakan kedua user.
 
 
 ## Soal 14 - 20
