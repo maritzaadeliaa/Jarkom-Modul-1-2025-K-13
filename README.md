@@ -29,17 +29,29 @@ display filter ```frame contains “success”``` untuk menemukan user yang berh
 41824
 ```
 lihat dipojok kanan bawah atau setelah close TCP stream akan muncul di display filter untuk streamnya 
+
 ![14c](assets/14c.png)
 ### d. What tools are used for brute force?
 ```bash 
 Fuzz Faster U Fool v2.1.0-dev
 ```
 lihat di TCP stream di bagian User-Agent (baris ke 3) 
-![14d](assets/14d.png)
+
 setelah menyelesaikan semua pertanyaan kita akan mendapatkan flag:
 ```bash 
 KOMJAR25{Brut3_F0rc3_k29eoD0KSbaBG9ZMd005q909j}
 ```
+
+### Soal 15
+Melkor menyusup ke ruang server dan memasang keyboard USB berbahaya pada node Manwe. Buka file capture dan identifikasi pesan atau ketikan (keystrokes) yang berhasil dicuri oleh Melkor untuk menemukan password rahasia. nc 10.15.43.32 3402
+
+### a. What device does Melkor use?
+ ```bash 
+Keyboard
+```
+cek packetnya dan di bagian interface descriptor, tertulis bInterfaceProtocol: Keyboard (0x01) atau dari soal juga dijelaskan USB Keyboard
+
+![15a](assets/15a.png)
 
 ### Soal 16
 Melkor semakin murka ia meletakkan file berbahaya di server milik Manwe. Dari file capture yang ada, identifikasi file apa yang diletakkan oleh Melkor. nc 10.15.43.32 3403
@@ -56,7 +68,6 @@ di packet pertama yang saya buka, sudah ketemu user dan juga passwordnya
 5
 ```
 jenis file malware yang paling umum adalah .exe, maka kita hitung ada berapa file .exe di TCP stream. Totalnya ada 5 malware (5 file .exe)
-![16b](assets/16b.png)
 
 ### c. What is the hash of the first file (q.exe)?
 ```bash 
@@ -136,9 +147,8 @@ lihat nama filenya di bagian filename
 
 ### c. Apa nama file berbahaya yang kedua?
 ```bash 
-41824
-```
 oiku9bu68cxqenfmcsos2aek6t07_guuisgxhllixv8dx2eemqddnhyh46l8n_di.exe
+```
 
 ### d. What is the hash of the first malicious file?
 ```bash 
@@ -185,7 +195,7 @@ setelah menyelesaikan semua pertanyaan kita akan mendapatkan flag:
 KOMJAR25{Y0u_4re_J4rk0m_G0d_YNMPF5MYCP70wlgyVVIfvmHaE}
 ```
 
-### Soal 19
+### Soal 20
 Untuk yang terakhir kalinya, rencana besar Melkor yaitu menanamkan sebuah file berbahaya kemudian menyembunyikannya agar tidak terlihat oleh Eru. Tetapi Manwë yang sudah merasakan adanya niat jahat dari Melkor, ia menyisipkan bantuan untuk mengungkapkan rencana Melkor. Analisis file capture dan identifikasi kegunaan bantuan yang diberikan oleh Manwë untuk menggagalkan rencana jahat Melkor selamanya. nc 10.15.43.32 3407
  ![20](assets/20.png)
  
