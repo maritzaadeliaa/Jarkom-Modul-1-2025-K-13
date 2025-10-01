@@ -5,6 +5,114 @@
 | Maritza Adelia Sucipto | 5027241111 |
 | Ahmad Rabbani Fata     | 5027241046 |
 
+## Soal 1 - 13
+
+### Soal 1
+Untuk mempersiapkan pembuatan entitas selain mereka, Eru yang berperan sebagai Router membuat dua Switch/Gateway. Dimana Switch 1 akan menuju ke dua Ainur yaitu Melkor dan Manwe. Sedangkan Switch 2 akan menuju ke dua Ainur lainnya yaitu Varda dan Ulmo. Keempat Ainur tersebut diberi perintah oleh Eru untuk menjadi Client.
+
+![1](assets/1.png)
+
+### Soal 2
+Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet
+
+`
+auto eth0
+iface eth0 inet dhcp
+`
+
+konfigurasi diatas digunakan untuk menghubungkan Eru dengan internet
+
+### Soal 3
+Sekarang pastikan agar setiap Ainur (Client) dapat terhubung satu sama lain.
+
+`
+auto eth1                   
+iface eth1 inet static
+	address 10.70.1.1
+	netmask 255.255.255.0
+`
+
+config diatas digunakan untuk menghubungkan Eru dengan switch 1
+
+`
+auto eth2                   
+iface eth2 inet static
+	address 10.70.2.1
+	netmask 255.255.255.0
+`
+
+config diatas digunakan untuk menghubungkan Eru dengan switch 2
+
+`
+auto eth0                  
+iface eth0 inet static
+	address 10.70.1.2
+	netmask 255.255.255.0
+	gateway 10.70.1.1
+`
+
+config diatas digunakan untuk menghubungkan switch 1 dengan Melkor
+
+`
+auto eth0                   
+iface eth0 inet static
+	Address 10.70.1.3
+	netmask 255.255.255.0
+	gateway 10.70.1.1
+`
+
+config diatas digunakan untuk menghubungkan switch 1 dengan Manwe
+
+`
+auto eth0                   
+iface eth0 inet static
+	address 10.70.2.2
+	netmask 255.255.255.0
+	gateway 10.70.2.1
+ `
+ 
+config diatas digunakan untuk menghubungkan switch 2 dengan Varda
+
+`
+auto eth0                   
+iface eth0 inet static
+	Address 10.70.2.3
+	netmask 255.255.255.0
+	Gateway 10.70.2.1
+ `
+ 
+config diatas digunakan untuk menghubungkan switch 2 dengan Ulmo
+
+### Soal 4
+Setelah berhasil terhubung, sekarang Eru ingin agar setiap Ainur (Client) dapat mandiri. Oleh karena itu pastikan agar setiap Client dapat tersambung ke internet.
+
+`
+apt update && apt install  iptables -y
+`
+
+menginstall iptables supaya bisa mengkonfigurasi NAT
+
+`
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s10.70.0.0/16
+`
+
+Membuat Eru menjadi gateway jaringan internet
+
+`
+cat /etc/resolv.conf
+`
+
+digunakan untuk mengecek ip di config resolve
+
+`
+Echo nameserver [IP] > /etc/resolv.conf
+`
+### Soal 5
+Ainur terkuat Melkor tetap berusaha untuk menanamkan kejahatan ke dalam Arda (Bumi). Sebelum terjadi kerusakan, Eru dan para Ainur lainnya meminta agar semua konfigurasi tidak hilang saat semua node di restart.
+
+supaya konfigurasi tidak hilang ketika di restart, konfigurasi bisa disimpan di /root/ sebelum keluar dari project sehingga tidak reset
+
+digunakan supaya ip di config resolve bisa terbaca oleh client (dilakukan untuk semua client)
 ## Soal 14 - 20
 > untuk soal 14 - 20, kita perlu mendownload file zip yang diberikan kemudian membuka file pcapng(wireshark) dan di terminal ketik nc sesuai yang diberikan di soal
 > 
