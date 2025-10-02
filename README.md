@@ -184,7 +184,9 @@ Membuat folder /home/ainur/shared sebagai tempat upload dan memberi izin hanya u
 ### Soal 8
 Ulmo, sebagai penjaga perairan, perlu mengirimkan data ramalan cuaca ke node Eru. Lakukan koneksi sebagai client dari node Ulmo ke FTP Server Eru menggunakan user ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan Wireshark dan identifikasi perintah FTP yang digunakan untuk proses upload.
 
-pertama, akses filezilla dan masukkan kredensial
+Jalankan Wireshark di Node Eru, pilih interface eth0, klik Start Capturing untuk mulai menangkap paket. Ini dilakukan untuk menangkap semua paket ftp yang dikirim dari client Ulmo ke server Eru.
+
+akses filezilla dan masukkan kredensial 
 
 `
 Host: [ip]
@@ -193,6 +195,30 @@ Password: ainurpw
 Port: [port]
 `
 
+Selanjutnya, pilih file cuaca.txt & mendung.jpg dari _local_ menuju _remote_ dan setelah itu stop capture wireshark dan simpan di /root/ftp_upload_ulmo.pcap
+
+### Soal 9
+Eru ingin membagikan "Kitab Penciptaan" di (link file) kepada Manwe. Dari FTP Server Eru, download file tersebut ke node Manwe. Karena Eru merasa Kitab tersebut sangat penting maka ia mengubah akses user ainur menjadi read-only. Gunakan Wireshark untuk memonitor koneksi, identifikasi perintah FTP yang digunakan, dan uji akses user ainur.
+
+`
+cp /root/kitab_penciptaan.txt /home/ainur/shared/
+chown ainur:ainur /home/ainur/shared/kitab_penciptaan.txt
+`
+
+simpan file kitab_penciptaan.txt ke dalam folder user ainur
+
+Jalankan Wireshark di Node Eru, pilih interface eth0, klik Start Capturing untuk mulai menangkap paket. Ini dilakukan untuk menangkap semua paket ftp yang dikirim dari client Manwe ke server Eru.
+
+akses filezilla dan masukkan kredensial 
+
+`
+Host: [ip]
+Username: ainur
+Password: ainurpw
+Port: [port]
+`
+
+selanjutnya, download kitab_penciptaan.txt dari remote menuju local dan setelah itu stop capture wireshark dan simpan di /root/ftp_upload_ulmo.pcap
 
 
 ## Soal 14 - 20
