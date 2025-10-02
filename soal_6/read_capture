@@ -1,0 +1,1 @@
+tcpdump -r /root/manwe_eru_traffic.pcap -n | head
