@@ -121,7 +121,6 @@ Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam komu
 Letakkan traffic.sh di node manwe lalu jalankan
 
 `
-chmod +x traffic.sh
 ./traffic.sh
 `
 
