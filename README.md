@@ -240,7 +240,12 @@ ca34b0926cdc3242bbfad1c4a0b42cc2750d90db9a272d92cfb6cb7034d2a3bd
 10ce4b79180a2ddd924fdc95951d968191af2ee3b7dfc96dd6a5714dbeae613a
 ```
 
-untuk soal 16c - 16g download file .exe dalam format **raw**, pindahkan ke linux, kemudian buka terminal baru dan masuk ke folder tempat file tersebut
+untuk soal 16c - 16g download file .exe dalam format **raw**
+gunakan filter 
+```
+_ws.col.info contains "<namafile>"
+```
+pindahkan ke linux, kemudian buka terminal baru dan masuk ke folder tempat file tersebut
 command: ```sha256sum <namafile>```
 ![16hash](assets/16hash.png)
 setelah menyelesaikan semua pertanyaan kita akan mendapatkan flag:
@@ -346,21 +351,19 @@ KOMJAR25{Y0u_4re_J4rk0m_G0d_YNMPF5MYCP70wlgyVVIfvmHaE}
 ### Soal 20
 Untuk yang terakhir kalinya, rencana besar Melkor yaitu menanamkan sebuah file berbahaya kemudian menyembunyikannya agar tidak terlihat oleh Eru. Tetapi Manwë yang sudah merasakan adanya niat jahat dari Melkor, ia menyisipkan bantuan untuk mengungkapkan rencana Melkor. Analisis file capture dan identifikasi kegunaan bantuan yang diberikan oleh Manwë untuk menggagalkan rencana jahat Melkor selamanya. nc 10.15.43.32 3407
  ![20](assets/20.png)
- 
-di soal ini diberikan file txt, sehingga kita masukkan filenya dengan cara **Edit -> Preferences -> Protocol -> TLS** lalu tambahkan filenya
 
 ### a. What encryption method is used?
 ```bash 
 TLS
 ```
-karena TLS merupakan protocol dengan probabilitas tertinggi sebagai kanal penyembunyian data (traffic terenkripsi & umum)
- 
+**statistics -> Protocol Hierarchy ** terlihat TLS dengan Percent Bytes paling besar
 
  ### b. What is the name of the malicious file placed by the attacker?
  ```bash 
 invest_20.dll
 ```
-file -> export objects -> HTTP (cari file application dengan ekstensi)
+di soal ini diberikan file txt, sehingga kita masukkan filenya dengan cara **Edit -> Preferences -> Protocol -> TLS** lalu tambahkan filenya
+cara mencari filenya yaitu **file -> export objects -> HTTP** (cari file application dengan ekstensi)
 
 ### c. What is the hash of the file containing the malware?
 ```bash 
