@@ -1,2 +1,2 @@
 useradd -m -s /bin/bash ainur
-echo "ainur:ainurpass" | chpasswd
+echo "ainur:ainurpw" | chpasswd
