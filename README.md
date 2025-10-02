@@ -144,11 +144,55 @@ tcpdump -r /root/manwe_eru_traffic.pcap -n | head
 `
 
 
-
-
-
 ### Soal 7
 Untuk meningkatkan keamanan, Eru memutuskan untuk membuat sebuah FTP Server di node miliknya. Lakukan konfigurasi FTP Server pada node Eru. Buat dua user baru: ainur dengan hak akses write&read dan melkor tanpa hak akses sama sekali ke direktori shared. Buktikan hasil tersebut dengan membuat file teks sederhana kemudian akses file tersebut menggunakan kedua user.
+
+`
+apt update
+apt install vsftpd -y
+`
+install vsftpd
+
+`
+cat > /etc/vsftpd.conf <<'EOF'
+listen=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=YES
+EOF
+`
+
+Konfigurasi ftp supaya hanya user lokal yang bisa login, dan mereka hanya bisa mengakses folder sendiri.
+
+`
+useradd -m -s /bin/bash ainur
+echo "ainur:ainurpw" | chpasswd
+`
+
+Membuat user sistem bernama ainur, memberikan shell login, menetapkan password ainurpw dan otomatis membuat /home/ainur
+
+`
+mkdir -p /home/ainur/shared
+chown -R ainur:ainur /home/ainur/shared
+chmod 755 /home/ainur/shared
+`
+
+Membuat folder /home/ainur/shared sebagai tempat upload dan memberi izin hanya untuk user ainur
+
+### Soal 8
+Ulmo, sebagai penjaga perairan, perlu mengirimkan data ramalan cuaca ke node Eru. Lakukan koneksi sebagai client dari node Ulmo ke FTP Server Eru menggunakan user ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan Wireshark dan identifikasi perintah FTP yang digunakan untuk proses upload.
+
+pertama, akses filezilla dan masukkan kredensial
+
+`
+Host: [ip]
+Username: ainur
+Password: ainurpw
+Port: [port]
+`
+
 
 
 ## Soal 14 - 20
