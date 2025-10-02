@@ -1,0 +1,2 @@
+cp /root/kitab_penciptaan.txt /home/ainur/shared/
+chown ainur:ainur /home/ainur/shared/kitab_penciptaan.txt
