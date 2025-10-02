@@ -1,0 +1,8 @@
+cat > /etc/vsftpd.conf <<'EOF'
+listen=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=YES
+EOF
