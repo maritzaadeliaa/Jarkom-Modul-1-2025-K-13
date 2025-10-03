@@ -261,13 +261,118 @@ KOMJAR25{Brut3_F0rc3_k29eoD0KSbaBG9ZMd005q909j}
 ### Soal 15
 Melkor menyusup ke ruang server dan memasang keyboard USB berbahaya pada node Manwe. Buka file capture dan identifikasi pesan atau ketikan (keystrokes) yang berhasil dicuri oleh Melkor untuk menemukan password rahasia. nc 10.15.43.32 3402
 
+![15](assets/15.png)
+
 ### a. What device does Melkor use?
  ```bash 
 Keyboard
 ```
 cek packetnya dan di bagian interface descriptor, tertulis bInterfaceProtocol: Keyboard (0x01) atau dari soal juga dijelaskan USB Keyboard
 
-![15a](assets/15a.png)
+### b. What did Melkor write?
+ ```bash 
+UGx6X3ByMHYxZGVfeTB1cl91czNybjRtZV80bmRfcDRzc3cwcmQ=
+```
+buat file hiddata.py, yang berisikan code ini:
+```bash
+#!/usr/bin/env python3
+
+# USB HID Keyboard scan codes
+hid_map = {
+    0x04: 'a', 0x05: 'b', 0x06: 'c', 0x07: 'd', 0x08: 'e', 0x09: 'f', 0x0a: 'g', 0x0b: 'h',
+    0x0c: 'i', 0x0d: 'j', 0x0e: 'k', 0x0f: 'l', 0x10: 'm', 0x11: 'n', 0x12: 'o', 0x13: 'p',
+    0x14: 'q', 0x15: 'r', 0x16: 's', 0x17: 't', 0x18: 'u', 0x19: 'v', 0x1a: 'w', 0x1b: 'x',
+    0x1c: 'y', 0x1d: 'z', 0x1e: '1', 0x1f: '2', 0x20: '3', 0x21: '4', 0x22: '5', 0x23: '6',
+    0x24: '7', 0x25: '8', 0x26: '9', 0x27: '0',
+    0x28: '\n', 0x2c: ' ', 0x2d: '-', 0x2e: '=', 0x2f: '[', 0x30: ']', 0x33: ';', 0x34: "'",
+    0x36: ',', 0x37: '.', 0x38: '/', 0x2a: 'Backspace', 0x31: '\\'
+}
+
+shift_map = {
+    0x04: 'A', 0x05: 'B', 0x06: 'C', 0x07: 'D', 0x08: 'E', 0x09: 'F', 0x0a: 'G', 0x0b: 'H',
+    0x0c: 'I', 0x0d: 'J', 0x0e: 'K', 0x0f: 'L', 0x10: 'M', 0x11: 'N', 0x12: 'O', 0x13: 'P',
+    0x14: 'Q', 0x15: 'R', 0x16: 'S', 0x17: 'T', 0x18: 'U', 0x19: 'V', 0x1a: 'W', 0x1b: 'X',
+    0x1c: 'Y', 0x1d: 'Z', 0x1e: '!', 0x1f: '@', 0x20: '#', 0x21: '$', 0x22: '%', 0x23: '^',
+    0x24: '&', 0x25: '*', 0x26: '(', 0x27: ')', 0x2d: '_', 0x2e: '+', 0x2f: '{', 0x30: '}',
+    0x33: ':', 0x34: '"', 0x36: '<', 0x37: '>', 0x38: '?', 0x31: '|'
+}
+
+def decode_keystrokes(filename):
+    """Decode USB HID keystrokes from file"""
+    try:
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print(f"File {filename} tidak ditemukan!")
+        return
+    
+    output = ""
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # Format: 8 byte hex string (contoh: "00001e0000000000")
+        if len(line) == 16:  # 16 karakter hex = 8 byte
+            try:
+                # Parse bytes
+                bytes_data = [int(line[i:i+2], 16) for i in range(0, 16, 2)]
+                
+                modifier = bytes_data[0]  # Byte 1: Modifier
+                keycode = bytes_data[2]   # Byte 3: Keycode
+                
+                # Skip jika keycode = 0 (no key pressed)
+                if keycode == 0:
+                    continue
+                
+                # Decode berdasarkan modifier
+                if modifier == 0x02 or modifier == 0x20:  # Shift
+                    if keycode in shift_map:
+                        output += shift_map[keycode]
+                    else:
+                        output += f'[Shift+{keycode:02x}]'
+                else:
+                    if keycode in hid_map:
+                        output += hid_map[keycode]
+                    else:
+                        output += f'[{keycode:02x}]'
+                        
+            except ValueError:
+                continue
+    
+    return output
+
+def main():
+    
+    # File dari output tshark Anda
+    filename = "keystroke.txt"
+    
+    decoded = decode_keystrokes(filename)
+    
+    print(decoded)
+
+if __name__ == "__main__":
+    main()
+```
+gunakan command:
+```
+tshark -r <namafile.pcapng> -Y "usb.capdata" -T fields -e usb.capdata | tr -d : > keystroke.txt
+```
+lalu jalankan:
+```
+python3 hiddata.py
+```
+
+### c. What is Melkor's secret message?
+ ```bash 
+Plz_pr0v1de_y0ur_us3rn4me_4nd_p4ssw0rd
+```
+gunakan command: 
+```
+echo "UGx6X3ByMHYxZGVfeTB1cl91czNybjRtZV80bmRfcDRzc3cwcmQ=" | base64 -d
+```
+![15abc](assets/15abc.png)
 
 ### Soal 16
 Melkor semakin murka ia meletakkan file berbahaya di server milik Manwe. Dari file capture yang ada, identifikasi file apa yang diletakkan oleh Melkor. nc 10.15.43.32 3403
