@@ -268,6 +268,7 @@ Melkor menyusup ke ruang server dan memasang keyboard USB berbahaya pada node Ma
 Keyboard
 ```
 cek packetnya dan di bagian interface descriptor, tertulis bInterfaceProtocol: Keyboard (0x01) atau dari soal juga dijelaskan USB Keyboard
+![15a](assets/15a.png)
 
 ### b. What did Melkor write?
  ```bash 
