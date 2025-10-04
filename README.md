@@ -20,6 +20,9 @@ auto eth0
 iface eth0 inet dhcp
 `
 
+![2](assets/2.jpg)
+
+
 konfigurasi diatas digunakan untuk menghubungkan Eru dengan internet
 
 ### Soal 3
@@ -32,6 +35,9 @@ iface eth1 inet static
 	netmask 255.255.255.0
 `
 
+![2](assets/2.jpg)
+
+
 config diatas digunakan untuk menghubungkan Eru dengan switch 1
 
 `
@@ -40,6 +46,9 @@ iface eth2 inet static
 	address 10.70.2.1
 	netmask 255.255.255.0
 `
+
+![2](assets/2.jpg)
+
 
 config diatas digunakan untuk menghubungkan Eru dengan switch 2
 
@@ -51,6 +60,9 @@ iface eth0 inet static
 	gateway 10.70.1.1
 `
 
+![3](assets/3.jpg)
+
+
 config diatas digunakan untuk menghubungkan switch 1 dengan Melkor
 
 `
@@ -61,6 +73,9 @@ iface eth0 inet static
 	gateway 10.70.1.1
 `
 
+![3a](assets/3a.jpg)
+
+
 config diatas digunakan untuk menghubungkan switch 1 dengan Manwe
 
 `
@@ -70,6 +85,9 @@ iface eth0 inet static
 	netmask 255.255.255.0
 	gateway 10.70.2.1
  `
+
+![3b](assets/3b.jpg)
+
  
 config diatas digunakan untuk menghubungkan switch 2 dengan Varda
 
@@ -80,6 +98,9 @@ iface eth0 inet static
 	netmask 255.255.255.0
 	Gateway 10.70.2.1
  `
+
+![3c](assets/3c.jpg)
+
  
 config diatas digunakan untuk menghubungkan switch 2 dengan Ulmo
 
@@ -109,6 +130,26 @@ Echo nameserver [IP] > /etc/resolv.conf
 `
 
 digunakan supaya ip di config resolve bisa terbaca oleh client (dilakukan untuk semua client)
+
+![4](assets/4.jpg)
+ping google Eru
+
+
+![4a](assets/4a.jpg)
+ping google Melkor
+
+
+![4b](assets/4b.jpg)
+ping google Manwe
+
+
+![4c](assets/4c.jpg)
+ping google Varda
+
+
+![4d](assets/4d.jpg)
+ping google Ulmo
+
 
 ### Soal 5
 Ainur terkuat Melkor tetap berusaha untuk menanamkan kejahatan ke dalam Arda (Bumi). Sebelum terjadi kerusakan, Eru dan para Ainur lainnya meminta agar semua konfigurasi tidak hilang saat semua node di restart.
