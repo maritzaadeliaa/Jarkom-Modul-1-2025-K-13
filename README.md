@@ -15,10 +15,10 @@ Untuk mempersiapkan pembuatan entitas selain mereka, Eru yang berperan sebagai R
 ### Soal 2
 Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet
 
-`
+```bash
 auto eth0
 iface eth0 inet dhcp
-`
+```
 
 ![2](assets/2.jpg)
 
@@ -28,76 +28,76 @@ konfigurasi diatas digunakan untuk menghubungkan Eru dengan internet
 ### Soal 3
 Sekarang pastikan agar setiap Ainur (Client) dapat terhubung satu sama lain.
 
-`
+```bash
 auto eth1                   
 iface eth1 inet static
 	address 10.70.1.1
 	netmask 255.255.255.0
-`
+```
 
 ![2](assets/2.jpg)
 
 
 config diatas digunakan untuk menghubungkan Eru dengan switch 1
 
-`
+```bash
 auto eth2                   
 iface eth2 inet static
 	address 10.70.2.1
 	netmask 255.255.255.0
-`
+```
 
 ![2](assets/2.jpg)
 
 
 config diatas digunakan untuk menghubungkan Eru dengan switch 2
 
-`
+```bash
 auto eth0                  
 iface eth0 inet static
 	address 10.70.1.2
 	netmask 255.255.255.0
 	gateway 10.70.1.1
-`
+```
 
 ![3](assets/3.jpg)
 
 
 config diatas digunakan untuk menghubungkan switch 1 dengan Melkor
 
-`
+```bash
 auto eth0                   
 iface eth0 inet static
 	Address 10.70.1.3
 	netmask 255.255.255.0
 	gateway 10.70.1.1
-`
+```
 
 ![3a](assets/3a.jpg)
 
 
 config diatas digunakan untuk menghubungkan switch 1 dengan Manwe
 
-`
+```bash
 auto eth0                   
 iface eth0 inet static
 	address 10.70.2.2
 	netmask 255.255.255.0
 	gateway 10.70.2.1
- `
+ ```
 
 ![3b](assets/3b.jpg)
 
  
 config diatas digunakan untuk menghubungkan switch 2 dengan Varda
 
-`
+```bash
 auto eth0                   
 iface eth0 inet static
 	Address 10.70.2.3
 	netmask 255.255.255.0
 	Gateway 10.70.2.1
- `
+ ```
 
 ![3c](assets/3c.jpg)
 
@@ -107,27 +107,27 @@ config diatas digunakan untuk menghubungkan switch 2 dengan Ulmo
 ### Soal 4
 Setelah berhasil terhubung, sekarang Eru ingin agar setiap Ainur (Client) dapat mandiri. Oleh karena itu pastikan agar setiap Client dapat tersambung ke internet.
 
-`
+```bash
 apt update && apt install  iptables -y
-`
+```
 
 menginstall iptables supaya bisa mengkonfigurasi NAT
 
-`
+```bash
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s10.70.0.0/16
-`
+```
 
 Membuat Eru menjadi gateway jaringan internet
 
-`
+```bash
 cat /etc/resolv.conf
-`
+```
 
 digunakan untuk mengecek ip di config resolve
 
-`
+```bash
 Echo nameserver [IP] > /etc/resolv.conf
-`
+```
 
 digunakan supaya ip di config resolve bisa terbaca oleh client (dilakukan untuk semua client)
 
@@ -161,40 +161,40 @@ Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam komu
 
 Letakkan traffic.sh di node manwe lalu jalankan
 
-`
+```bash
 ./traffic.sh
-`
+```
 
 Lalu capture paket di manwe menggunakan tcpdump
 
-`
+```bash
 tcpdump -i eth0 -n -w /root/manwe_eru_traffic.pcap host [ip]
-`
+```
 
 yang nanti hasilnya bisa di akses di
 
-`
+```bash
 /root/manwe_eru_traffic.pcap
-`
+```
 
 dan bisa dicek menggunakan
 
-`
+```bash
 ls -lh /root/manwe_eru_traffic.pcap
 tcpdump -r /root/manwe_eru_traffic.pcap -n | head
-`
+```
 
 
 ### Soal 7
 Untuk meningkatkan keamanan, Eru memutuskan untuk membuat sebuah FTP Server di node miliknya. Lakukan konfigurasi FTP Server pada node Eru. Buat dua user baru: ainur dengan hak akses write&read dan melkor tanpa hak akses sama sekali ke direktori shared. Buktikan hasil tersebut dengan membuat file teks sederhana kemudian akses file tersebut menggunakan kedua user.
 
-`
+```bash
 apt update
 apt install vsftpd -y
-`
+```
 install vsftpd
 
-`
+```bash
 cat > /etc/vsftpd.conf <<'EOF'
 listen=YES
 anonymous_enable=NO
@@ -203,22 +203,22 @@ write_enable=YES
 chroot_local_user=YES
 allow_writeable_chroot=YES
 EOF
-`
+```
 
 Konfigurasi ftp supaya hanya user lokal yang bisa login, dan mereka hanya bisa mengakses folder sendiri.
 
-`
+```bash
 useradd -m -s /bin/bash ainur
 echo "ainur:ainurpw" | chpasswd
-`
+```
 
 Membuat user sistem bernama ainur, memberikan shell login, menetapkan password ainurpw dan otomatis membuat /home/ainur
 
-`
+```bash
 mkdir -p /home/ainur/shared
 chown -R ainur:ainur /home/ainur/shared
 chmod 755 /home/ainur/shared
-`
+```
 
 Membuat folder /home/ainur/shared sebagai tempat upload dan memberi izin hanya untuk user ainur
 
@@ -229,22 +229,22 @@ Jalankan Wireshark di Node Eru, pilih interface eth0, klik Start Capturing untuk
 
 akses filezilla dan masukkan kredensial 
 
-`
+```bash
 Host: [ip]
 Username: ainur
 Password: ainurpw
 Port: [port]
-`
+```
 
 Selanjutnya, pilih file cuaca.txt & mendung.jpg dari _local_ menuju _remote_ dan setelah itu stop capture wireshark dan simpan di /root/ftp_upload_ulmo.pcap
 
 ### Soal 9
 Eru ingin membagikan "Kitab Penciptaan" di (link file) kepada Manwe. Dari FTP Server Eru, download file tersebut ke node Manwe. Karena Eru merasa Kitab tersebut sangat penting maka ia mengubah akses user ainur menjadi read-only. Gunakan Wireshark untuk memonitor koneksi, identifikasi perintah FTP yang digunakan, dan uji akses user ainur.
 
-`
+```bash
 cp /root/kitab_penciptaan.txt /home/ainur/shared/
 chown ainur:ainur /home/ainur/shared/kitab_penciptaan.txt
-`
+```
 
 simpan file kitab_penciptaan.txt ke dalam folder user ainur
 
@@ -252,12 +252,12 @@ Jalankan Wireshark di Node Eru, pilih interface eth0, klik Start Capturing untuk
 
 akses filezilla dan masukkan kredensial 
 
-`
+```bash
 Host: [ip]
 Username: ainur
 Password: ainurpw
 Port: [port]
-`
+```
 
 selanjutnya, download kitab_penciptaan.txt dari remote menuju local dan setelah itu stop capture wireshark dan simpan di /root/ftp_upload_ulmo.pcap
 
